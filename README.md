@@ -1,3 +1,20 @@
+codex/add-user-upload-functionality-for-resources
+# AI Profit Suite
+
+This repository provides utilities for managing shared resources.
+
+## Uploading Resources
+
+Use `python main.py upload <path-or-url>` to add a guide, file, or link to the
+`shared_resources` directory. The command will copy local files or create a
+`.url` file containing the link.
+
+Example:
+
+```bash
+python main.py upload https://example.com/guide
+```
+=======
 
 # AI Profit Suite
 
@@ -116,3 +133,4 @@ You will be prompted to rate each learning strategy from 1 (least helpful) to 5 
 
 
 
+main
