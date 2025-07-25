@@ -1,0 +1,34 @@
+name: Auto-label Codex PRs
+
+on:
+  schedule:
+    - cron: '0 * * * *'  # every hour
+  workflow_dispatch:
+
+jobs:
+  label-codex:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Label PRs containing "Codex"
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { data: pullRequests } = await github.rest.pulls.list({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: 'open'
+            });
+
+            for (const pr of pullRequests) {
+              const hasLabel = pr.labels.some(label => label.name === 'codex');
+              const containsCodex = pr.title.includes('Codex') || pr.body?.includes('Codex');
+              if (!hasLabel && containsCodex) {
+                await github.rest.issues.addLabels({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number: pr.number,
+                  labels: ['codex']
+                });
+                console.log(`✅ Added codex label to PR #${pr.number}`);
+              }
+            }
