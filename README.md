@@ -1,3 +1,16 @@
+codex/identify-best-cities-for-business-expansion
+# AI Profit Suite
+
+This repository provides simple tools for gathering market insights.
+
+## Scripts
+
+### `main.py`
+Prints a startup message.
+
+### `expansion_insights.py`
+Fetches Google Trends data for a given search term and lists the top cities/regions with the highest interest. Use this to identify promising areas for expansion.
+=======
 codex/create-weekly-tutorials-on-trending-topics
 # AI Profit Suite
 
@@ -96,10 +109,17 @@ This repository provides utilities for managing shared resources.
 Use `python main.py upload <path-or-url>` to add a guide, file, or link to the
 `shared_resources` directory. The command will copy local files or create a
 `.url` file containing the link.
+main
 
 Example:
 
 ```bash
+codex/identify-best-cities-for-business-expansion
+python expansion_insights.py "electric bikes" --top 20
+```
+
+`--geo` can be changed to other country codes such as `GB` or left empty for worldwide results.
+=======
 python main.py upload https://example.com/guide
 ```
 =======
@@ -238,6 +258,7 @@ You will be prompted to rate each learning strategy from 1 (least helpful) to 5 
 
 
 
+main
 main
 main
 main
