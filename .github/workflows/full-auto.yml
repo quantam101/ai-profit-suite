@@ -1,38 +1,26 @@
-name: AI Profit Suite - Full Auto Ops
+name: Full Auto Ops
 
 on:
   push:
     branches:
       - main
-  pull_request:
-    types: [opened, synchronize, reopened]
   schedule:
-    - cron: '0 12 * * *'  # Daily at noon UTC
-  workflow_dispatch:
+    - cron: "0 8 * * *"  # Runs daily at 8:00 AM UTC
 
 jobs:
   daily-summary:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.x'
-
-      - name: Install requirements
+      - name: Generate summary file
         run: |
-          pip install -r requirements.txt || true
-          pip install fpdf openai pandas
+          echo "Daily Report - $(date)" > summary.txt
+          echo "Contributor activity, updates, and stats go here..." >> summary.txt
 
-      - name: Generate and save summary
-        run: |
-          python scripts/generate_summary.py
-
-      - name: Upload summary artifact
-        uses: actions/upload-artifact@v3
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
         with:
-          name: Daily Summary
-          path: output/daily_summary.pdf
+          name: daily-summary
+          path: summary.txt
