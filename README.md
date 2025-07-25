@@ -11,3 +11,6 @@ python3 main.py
 ```
 
 You will be prompted to rate each learning strategy from 1 (least helpful) to 5 (most helpful). Enter `0` if the prompt was not helpful and should be discarded. After rating, the updated prompt list is saved to `prompts.json` and displayed in ranked order.
+
+## Customizing
+Edit prompts.json to add your own learning strategies.
