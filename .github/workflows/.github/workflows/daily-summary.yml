@@ -1,0 +1,29 @@
+name: Daily Contributor Summary Report
+
+on:
+  schedule:
+    - cron: '0 12 * * *'  # Runs daily at 12:00 UTC
+  workflow_dispatch:
+
+jobs:
+  generate-summary:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Create contributor log
+        run: |
+          mkdir -p reports
+          git log --pretty=format:"%an - %s - %ad" --date=short > reports/contributor_log.txt
+
+      - name: Convert log to PDF
+        uses: docker://ghcr.io/berquerant/pandoc-action:main
+        with:
+          args: -o reports/contributor_summary.pdf reports/contributor_log.txt
+
+      - name: Upload report
+        uses: actions/upload-artifact@v3
+        with:
+          name: contributor-summary
+          path: reports/contributor_summary.pdf
