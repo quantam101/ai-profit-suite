@@ -1,0 +1,4 @@
+# Ignore generated files
+*.csv
+!.gitignore
+!products.csv
