@@ -1,0 +1,13 @@
+{
+    "date": "2024-07-25",
+    "earnings": 250.50,
+    "traffic_sources": {
+        "google": 120,
+        "facebook": 80,
+        "newsletter": 45
+    },
+    "actions_taken": [
+        "Updated product page",
+        "Launched ad campaign"
+    ]
+}
