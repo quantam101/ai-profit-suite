@@ -1,3 +1,4 @@
+
 import datetime
 
 LOG_FILE = 'profit_log.txt'
@@ -23,3 +24,15 @@ def log_daily_suggestions(daily_learnings: str, log_file: str = LOG_FILE):
     with open(log_file, 'a') as f:
         f.write(f'{date_str} | Income: {income_action} | Improvement: {improvement_task}\n')
     return income_action, improvement_task
+=======
+class ProfitTracker:
+    def __init__(self):
+        self.daily_revenue = []
+
+    def log_profit(self, amount):
+        self.daily_revenue.append(amount)
+        print(f"Logged: ${amount} | Total: ${sum(self.daily_revenue)}")
+
+    def average_profit(self):
+        return sum(self.daily_revenue) / len(self.daily_revenue) if self.daily_revenue else 0
+
