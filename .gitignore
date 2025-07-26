@@ -1,3 +1,21 @@
+codex/track-volunteer-hours-and-generate-certificates
 volunteers.json
 certificates/
 __pycache__/
+=======
+codex/implement-alerts-for-underperforming-products
+# Ignore generated files
+*.csv
+!.gitignore
+!products.csv
+=======
+
+__pycache__/
+profit_log.txt
+=======
+progress.json
+skills.json
+__pycache__/
+
+ main
+main
