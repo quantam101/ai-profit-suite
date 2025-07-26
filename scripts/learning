@@ -1,0 +1,32 @@
+import datetime
+import openai
+from fpdf import FPDF
+import os
+
+# Load your OpenAI API key
+openai.api_key = os.getenv("OPENAI_API_KEY")
+
+# Get today's date
+today = datetime.date.today().strftime("%A, %B %d, %Y")
+
+# Generate the AI learning prompt
+response = openai.ChatCompletion.create(
+    model="gpt-4",
+    messages=[
+        {"role": "system", "content": "You are a helpful assistant that creates 1 short AI learning prompt per day."},
+        {"role": "user", "content": "Give me today's AI learning focus and 1 related skill-building task."}
+    ]
+)
+
+# Extract the response
+message = response.choices[0].message.content.strip()
+
+# Create a simple PDF
+pdf = FPDF()
+pdf.add_page()
+pdf.set_font("Arial", size=14)
+pdf.multi_cell(0, 10, f"{today}\n\n{message}")
+
+# Save it to the output folder
+os.makedirs("output", exist_ok=True)
+pdf.output("output/learning_prompt.pdf")
