@@ -1,0 +1,26 @@
+name: Auto Fix Deprecated Actions
+
+on:
+  workflow_dispatch:
+
+jobs:
+  fix-deprecated-actions:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Replace all @v3 with @v4 in workflow files
+        run: |
+          find .github/workflows -type f -name "*.yml" -exec sed -i 's/@v3/@v4/g' {} +
+
+      - name: Configure Git
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Commit and push changes
+        run: |
+          git add .github/workflows/*.yml
+          git commit -m "fix: auto-upgraded all @v3 actions to @v4"
+          git push
