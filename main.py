@@ -1,3 +1,83 @@
+codex/add-user-upload-functionality-for-resources
+import argparse
+from resource_uploader import upload_resource
+
+
+def main():
+    parser = argparse.ArgumentParser(description="AI Profit Suite utility")
+    subparsers = parser.add_subparsers(dest="command")
+
+    upload_parser = subparsers.add_parser("upload", help="Upload a file or link")
+    upload_parser.add_argument("path_or_url", help="Path to local file or URL")
+    upload_parser.add_argument(
+        "--dir",
+        default="shared_resources",
+        help="Directory to store uploaded resources",
+    )
+
+    args = parser.parse_args()
+
+    if args.command == "upload":
+        dest = upload_resource(args.path_or_url, args.dir)
+        print(f"Resource saved to {dest}")
+    else:
+        print("AI Profit Suite Initialized.")
+
+
+if __name__ == "__main__":
+    main()
+=======
+codex/scrape-trending-products-daily
+from trending import gather_trending_products
+
+print("AI Profit Suite Initialized.")
+
+if __name__ == "__main__":
+    products = gather_trending_products()
+    if products:
+        print("Top products to promote:")
+        for product in products:
+            print(product)
+    else:
+        print("No products retrieved.")
+=======
+
+from profit_tracker import log_daily_suggestions
+
+print("AI Profit Suite Initialized.")
+
+daily_learnings = input("Describe today's learning: ")
+
+income_action, improvement_task = log_daily_suggestions(daily_learnings)
+
+print("Income-generating action:", income_action)
+print("Business improvement task:", improvement_task)
+=======
+
+print("AI Profit Suite Initialized.")
+
+
+def daily_ai_task():
+    """Print today's self-improvement task."""
+    print(
+        "Today’s task: Improve lead conversion strategy using top-performing keywords."
+    )
+
+
+if __name__ == "__main__":
+    daily_ai_task()
+=======
+
+"""Entry point for the AI Profit Suite."""
+
+
+def main() -> None:
+    """Run the main routine."""
+    print("AI Profit Suite Initialized.")
+
+
+if __name__ == "__main__":
+=======
 import json
 from pathlib import Path
 
@@ -63,4 +143,8 @@ def main():
 
 
 if __name__ == '__main__':
+
     main()
+
+main
+main

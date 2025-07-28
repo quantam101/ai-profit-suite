@@ -1,0 +1,5 @@
+requests
+codex/create-weekly-tutorials-on-trending-topics
+beautifulsoup4
+=======
+main
