@@ -28,7 +28,7 @@ jobs:
           python scripts/daily_learning_prompt.py
 
       - name: Upload learning PDF
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: LearningPrompt
           path: output/daily_prompt.pdf
