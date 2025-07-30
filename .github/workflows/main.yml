@@ -11,7 +11,7 @@ jobs:
 
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Generate contributor log
         run: |
@@ -24,7 +24,7 @@ jobs:
           args: -o reports/contributor_summary.pdf reports/contributor_log.txt
 
       - name: Upload daily PDF report
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: daily-contributor-summary
           path: reports/contributor_summary.pdf
