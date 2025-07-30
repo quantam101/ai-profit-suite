@@ -1,31 +1,27 @@
-name: AI Profit Suite - Full Auto Ops
+name: AI Summary Generator - Every 30 Min
 
 on:
-  push:
-    branches:
-      - main
-  pull_request:
-    types: [opened, synchronize, reopened] 
   schedule:
-    - cron: '0 12 * * *'
+    - cron: '*/30 * * * *'  # Every 30 minutes
   workflow_dispatch:
 
 jobs:
-  daily-summary:
+  generate-summary:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - name: Checkout repo
+        uses: actions/checkout@v3
 
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
           python-version: '3.x'
 
-      - name: Install requirements
+      - name: Install dependencies
         run: |
-          pip install -r requirements.txt || true
-          pip install fpdf openai pandas || true
+          pip install --upgrade pip
+          pip install openai pandas fpdf || true
 
       - name: Debug - List Files
         run: ls -R
@@ -34,11 +30,10 @@ jobs:
         run: |
           mkdir -p output
           set -x
-          python scripts/generate_summary.py || echo "Script failed"
+          python scripts/generate_summary.py || echo "⚠️ Script failed but continuing"
 
       - name: Upload summary artifact
-  uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v4
         with:
-    name: Daily Summary
-    path: output/daily_summary.pdf
-
+          name: Daily Summary
+          path: output/daily_summary.pdf
