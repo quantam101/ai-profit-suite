@@ -1,34 +1,25 @@
-name: AI Learning Prompt - Every 30 Min
+# daily_learning_prompt.py
 
-on:
-  schedule:
-    - cron: '*/30 * * * *'  # Every 30 minutes
-  workflow_dispatch:
+import os
+import openai
+from datetime import datetime
 
-jobs:
-  generate-learning:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repo
-        uses: actions/checkout@v3
+openai.api_key = os.getenv("OPENAI_API_KEY")
 
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.x'
+prompt = f"Generate a daily learning idea for {datetime.now().strftime('%B %d, %Y')} that teaches something useful about AI, coding, or productivity."
 
-      - name: Install dependencies
-        run: |
-          pip install openai fpdf pandas
+response = openai.Completion.create(
+    model="text-davinci-003",
+    prompt=prompt,
+    temperature=0.7,
+    max_tokens=200
+)
 
-      - name: Run learning prompt generator
-        env:
-          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-        run: |
-          python scripts/daily_learning_prompt.py
+result = response.choices[0].text.strip()
 
-      - name: Upload learning PDF
-        uses: actions/upload-artifact@v4
-        with:
-          name: LearningPrompt
-          path: output/daily_prompt.pdf
+# Save output
+os.makedirs("output", exist_ok=True)
+with open("output/daily_learning.txt", "w") as f:
+    f.write(result)
+
+print("✅ Daily prompt generated successfully.")
