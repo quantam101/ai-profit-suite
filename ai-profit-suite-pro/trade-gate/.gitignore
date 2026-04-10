@@ -1,0 +1,11 @@
+__pycache__/
+*.pyc
+.env
+.venv/
+node_modules/
+.next/
+dist/
+build/
+trade_gate.db
+coverage/
+playwright-report/
