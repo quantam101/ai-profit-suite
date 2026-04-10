@@ -1,0 +1,15 @@
+version: '3.9'
+services:
+  worker:
+    image: python:3.11-slim
+    working_dir: /app
+    env_file:
+      - .env
+    volumes:
+      - ./apps/worker:/app
+
+  web:
+    image: node:20
+    working_dir: /app
+    volumes:
+      - ./apps/web:/app
