@@ -1,41 +1,42 @@
-name: AI Summary Generator
+name: AI Profit Suite CI
 
 on:
-  schedule:
-    - cron: '*/30 * * * *'  # Every 30 minutes
   push:
+    branches:
+      - main
+  pull_request:
     branches:
       - main
   workflow_dispatch:
 
 jobs:
-  generate-summary:
+  verify:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Set up Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
-          python-version: '3.10'
+          python-version: '3.11'
+          cache: pip
 
       - name: Install dependencies
-        run: |
-          pip install -r requirements.txt || true
-          pip install fpdf openai pandas || true
+        run: pip install -r requirements.txt
 
-      - name: Debug - List files
-        run: ls -R
+      - name: Compile Python files
+        run: python -m py_compile *.py scripts/generate_summary.py
 
-      - name: Generate and save summary
-        run: |
-          mkdir -p output
-          python scripts/generate_summary.py || echo "Script failed"
+      - name: Run tests
+        run: pytest -q
+
+      - name: Generate summary artifact
+        run: python scripts/generate_summary.py sample_data.json output/daily_summary.pdf
 
       - name: Upload summary artifact
         uses: actions/upload-artifact@v4
         with:
-          name: Daily Summary
+          name: daily-summary
           path: output/daily_summary.pdf
