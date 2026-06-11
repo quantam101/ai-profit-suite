@@ -1,5 +1,8 @@
-requests
-codex/create-weekly-tutorials-on-trending-topics
-beautifulsoup4
-=======
-main
+beautifulsoup4>=4.12.3
+fpdf2>=2.7.9
+pandas>=2.2.3
+pytrends>=4.9.2
+pytest>=8.3.4
+requests>=2.32.3
+schedule>=1.2.2
+twilio>=9.4.1
