@@ -1,23 +1,29 @@
-# daily_learning_prompt.py
-import os
-import openai
-from datetime import datetime
+name: Daily Learning Prompt
 
-openai.api_key = os.getenv("OPENAI_API_KEY")
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '30 12 * * *'
 
-prompt = f"Generate a daily learning idea for {datetime.now().strftime('%B %d, %Y')} that improves business or technology skills."
+jobs:
+  generate-learning-prompt:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
 
-response = openai.Completion.create(
-    model="text-davinci-003",
-    prompt=prompt,
-    temperature=0.7,
-    max_tokens=200
-)
+      - name: Generate deterministic learning prompt
+        run: |
+          mkdir -p output
+          DATE=$(date -u +%F)
+          cat > output/daily_learning.txt <<EOF
+          Daily learning prompt for ${DATE}
 
-result = response.choices[0].text.strip()
+          Review one live revenue workflow. Identify the intake source, conversion path, payment path, failure point, and one improvement that reduces manual work without adding paid dependencies.
+          EOF
+          cat output/daily_learning.txt
 
-os.makedirs("output", exist_ok=True)
-with open("output/daily_learning.txt", "w") as f:
-    f.write(result)
-
-print("✅ Daily prompt generated successfully.")
+      - name: Upload learning prompt
+        uses: actions/upload-artifact@v4
+        with:
+          name: daily-learning-prompt
+          path: output/daily_learning.txt
