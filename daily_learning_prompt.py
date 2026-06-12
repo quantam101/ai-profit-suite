@@ -34,9 +34,7 @@ filename = f"output/daily_prompt.pdf"
 pdf = FPDF()
 pdf.add_page()
 pdf.set_font("Arial", size=12)
-pdf.multi_cell(0, 10, txt=f"📅 AI Daily Prompt - {datetime.now().strftime('%Y-%m-%d')}
-
-{message}")
+pdf.multi_cell(0, 10, txt=f"📅 AI Daily Prompt - {datetime.now().strftime('%Y-%m-%d')}\n\n{message}")
 
 # Save PDF
 pdf.output(filename)
