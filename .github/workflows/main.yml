@@ -1,8 +1,7 @@
 name: Daily Contributor Summary Report
 
 on:
-  schedule:
-    - cron: '0 12 * * *'  # Runs daily at 12:00 UTC
+  # Scheduled trigger disabled 2026-10-13: dormant repo (archive candidate).
   workflow_dispatch:
 
 jobs:
