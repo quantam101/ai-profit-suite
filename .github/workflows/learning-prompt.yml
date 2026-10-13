@@ -2,8 +2,7 @@ name: Daily Learning Prompt
 
 on:
   workflow_dispatch:
-  schedule:
-    - cron: '30 12 * * *'
+  # Scheduled trigger disabled 2026-10-13: dormant repo (archive candidate).
 
 jobs:
   generate-learning-prompt:

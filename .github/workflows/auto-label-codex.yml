@@ -1,8 +1,7 @@
 name: Auto-label Codex PRs
 
 on:
-  schedule:
-    - cron: '0 * * * *'  # every hour
+  # Scheduled trigger disabled 2026-10-13: dormant repo, ~720 wasted runs/mo.
   workflow_dispatch:
 
 jobs:
